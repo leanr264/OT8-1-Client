@@ -25,16 +25,22 @@ btnRegister.addEventListener("click", async (e) => {
       });
       console.log(response.data);
       if (response.data.jwt) {
-        sessionStorage.setItem("token", response.data.jwt);
+         alert("Registro exitoso. Revisa tu correo para verificar tu cuenta antes de iniciar sesión.");
+          window.open("http://localhost:3000/", "_self");
+        
+        /*sessionStorage.setItem("token", response.data.jwt);
         sessionStorage.setItem("userId", response.data.userId);
         sessionStorage.setItem("firstName", response.data.firstName);
         sessionStorage.setItem("lastName", response.data.lastName);
         sessionStorage.setItem("email", response.data.userEmail);
         console.log(sessionStorage.getItem("token"));
-        window.open("http://localhost:3000/home", "_self");
+        window.open("http://localhost:3000/home", "_self");*/
       }
     } catch (error) {
       console.log(error);
+      alert(error.response?.data?.message || "Hubo un error al registrar el usuario");
     }
+  } else {
+    alert("Por favor, completa todos los campos correctamente.");
   }
 });

@@ -21,6 +21,11 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/login/login.html");
 });
+
+app.get("/verify", (req, res) => {
+  res.sendFile(__dirname + "/public/verify/verify.html");
+});
+
 app.get("/register", (req, res) => {
   res.sendFile(__dirname + "/public/register/register.html");
 });
@@ -106,7 +111,8 @@ app.post("/registerUser", async (req, res) => {
       password: data.password
     });
     console.log(registerResponse);
-    const loginURL = API_URL + "/auth/login";
+    res.json(registerResponse);
+    /*const loginURL = API_URL + "/auth/login";
     try {
       const loginResponse = await postData(
         loginURL,
@@ -133,7 +139,7 @@ app.post("/registerUser", async (req, res) => {
       res.json(registerResponse);
     } catch (error) {
       console.log(error);
-    }
+    }*/
   } catch (error) {
     console.log(error);
   }
