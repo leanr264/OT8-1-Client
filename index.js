@@ -21,6 +21,11 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/login/login.html");
 });
+
+app.get("/verify", (req, res) => {
+  res.sendFile(__dirname + "/public/verify/verify.html");
+});
+
 app.get("/register", (req, res) => {
   res.sendFile(__dirname + "/public/register/register.html");
 });
@@ -85,11 +90,32 @@ app.post("/loginUser", async (req, res) => {
   try {
     const data = req.body;
     const url = API_URL + "/auth/login";
-    const response = await postData(url, {
+    const loginResponse = await postData(url, {
       email: data.userEmail,
       password: data.userPassword
     });
-    res.json(response);
+
+    console.log("LOGIN RESPONSE:", loginResponse);
+    const token = loginResponse.jwt;
+    const userId = loginResponse.userId;
+
+    // Obtener cuentas existentes
+    const accountsURL = API_URL + `/accounts/${userId}`;
+    const accounts = await fetchData(accountsURL, token);
+
+    const hasARS = accounts.some(acc => acc.currency === "ARS");
+    const hasUSD = accounts.some(acc => acc.currency === "USD");
+
+    // Crear cuentas cuando no existen
+    if (!hasARS) {
+      await postData(API_URL + "/accounts?currency=ARS", null, token);
+    }
+
+    if (!hasUSD) {
+      await postData(API_URL + "/accounts?currency=USD", null, token);
+    }
+
+    res.json(loginResponse);
   } catch (error) {
     console.log(error);
   }
@@ -106,34 +132,7 @@ app.post("/registerUser", async (req, res) => {
       password: data.password
     });
     console.log(registerResponse);
-    const loginURL = API_URL + "/auth/login";
-    try {
-      const loginResponse = await postData(
-        loginURL,
-        {
-          email: data.email,
-          password: data.password
-        },
-        null
-      );
-      console.log(loginResponse);
-      if (loginResponse.jwt) {
-        const token = loginResponse.jwt;
-        const arsURL = API_URL + "/accounts?currency=ARS";
-        const usdURL = API_URL + "/accounts?currency=USD";
-        try {
-          const accountArs = await postData(arsURL, null, token);
-          console.log(accountArs);
-          const accountUsd = await postData(usdURL, null, token);
-          console.log(accountUsd);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      res.json(registerResponse);
-    } catch (error) {
-      console.log(error);
-    }
+    res.json(registerResponse);
   } catch (error) {
     console.log(error);
   }
