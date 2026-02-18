@@ -26,7 +26,7 @@ btnRegister.addEventListener("click", async (e) => {
       });
       console.log(response.data);
 
-      if (response) {
+      if (response.data) {
         modal.style.display = 'block';
         var node=document.getElementById("content");
         node.innerHTML=`
