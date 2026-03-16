@@ -13,14 +13,12 @@ btnLogout.addEventListener("click", () => {
 });
 
 btnSend.addEventListener("click", async (e) => {
-  e.preventDefault();
   console.log("clic");
   const CVU = inputCVU.value;
   const amount = inputAmount.value;
   const description = textAreaDescription.value;
   console.log(CVU, amount, description);
   if (amount > 0 && CVU) {
-    console.log("aca");
     e.preventDefault();
     try {
       const response = await axios.post("/sendUsd", {
