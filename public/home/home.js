@@ -13,6 +13,7 @@ const btnPaymentUsd = document.getElementById("paymentUsd");
 const btnDepositUsd = document.getElementById("depositUsd");
 const btnSendArs = document.getElementById("sendArs");
 const btnSendUsd = document.getElementById("sendUsd");
+const btnBuyUsd = document.getElementById("buyUsd");
 
 btnLogout.addEventListener("click", () => {
   sessionStorage.clear();
@@ -53,6 +54,10 @@ btnSendArs.addEventListener("click", () => {
 
 btnSendUsd.addEventListener("click", () => {
   window.open("http://localhost:3000/sendUsd", "_self");
+});
+
+btnBuyUsd.addEventListener("click", () => {
+  window.open("http://localhost:3000/buyUsd", "_self");
 });
 
 const getAccounts = async () => {
