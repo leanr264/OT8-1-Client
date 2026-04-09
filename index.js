@@ -411,8 +411,7 @@ app.post("/buyUsd", async (req, res) => {
     const response = await postData(
       url,
       {
-        destinyAccountId: data.destinyAccountId,
-        amount: data.amount,
+        amountUsd: data.amount,
         description: data.description
       },
       data.token

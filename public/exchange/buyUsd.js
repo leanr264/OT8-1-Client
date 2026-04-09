@@ -1,4 +1,3 @@
-const inputCVU = document.getElementById("InputCVU");
 const inputAmount = document.getElementById("InputAmount");
 const textAreaDescription = document.getElementById("TextAreaDescription");
 const btnSend = document.getElementById("btnSend");
@@ -14,15 +13,13 @@ btnLogout.addEventListener("click", () => {
 
 btnSend.addEventListener("click", async (e) => {
   console.log("clic");
-  const CVU = inputCVU.value;
   const amount = inputAmount.value;
   const description = textAreaDescription.value;
-  console.log(CVU, amount, description);
-  if (amount > 0 && CVU) {
+  console.log(amount, description);
+  if (amount > 0) {
     e.preventDefault();
     try {
       const response = await axios.post("/buyUsd", {
-        destinyAccountId: CVU,
         amount: amount,
         description: description,
         token: sessionStorage.getItem("token")
@@ -56,31 +53,6 @@ btnSend.addEventListener("click", async (e) => {
   }
 });
 
-const getUsdAccountCVU = async () => {
-  console.log("buscando CVU");
-  const userId = sessionStorage.getItem("userId");
-  const token = sessionStorage.getItem("token");
-  if(userId && token) {
-    try {
-      console.log(userId, token);
-      const response = await axios.post("/userAccounts", {
-        userId: userId,
-        token: token
-      });
-      console.log(response.data);
-      response.data.map((account) => {
-        if (account.currency === "USD") {
-          sessionStorage.setItem("accountUsd", account.accountId);
-          inputCVU.value = account.accountId;
-          inputCVU.readOnly = true;
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-};
-
 const getDate = (transactionDate) => {
   const date = transactionDate.slice(0, 10);
   const dateComponents = date.split("-");
@@ -110,5 +82,3 @@ window.onclick = function (event) {
     closeModal();
   }
 };
-
-getUsdAccountCVU();
