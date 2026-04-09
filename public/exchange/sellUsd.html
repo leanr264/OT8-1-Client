@@ -20,7 +20,7 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-    <title>Compra de Dolares</title>
+    <title>Venta de Dolares</title>
   </head>
   <body>
     <header>
@@ -45,9 +45,9 @@
           <div class="col-6 mx-auto">
             <form action="" class="form-container">
               <div>
-                <h4 class="mb-3">Realiza la compra de dolares:</h4>
+                <h4 class="mb-3">Realiza la venta de dolares:</h4>
               </div>
-              <div class="mb-3">
+              <!--div class="mb-3">
                 <label for="InputCVU" class="form-label">CVU</label>
                 <input
                   type="text"
@@ -56,9 +56,9 @@
                   aria-describedby=""
                   required
                 />
-              </div>
+              </div-->
               <div class="mb-3">
-                <label for="InputAmount" class="form-label">Monto</label>
+                <label for="InputAmount" class="form-label">Dólares a vender</label>
                 <input
                   type="number"
                   class="form-control"
@@ -81,7 +81,7 @@
                 ></textarea>
               </div>
               <button type="submit" class="btn-send" id="btnSend">
-                Comprar USD
+                Vender USD
               </button>
             </form>
           </div>
@@ -119,5 +119,5 @@
     </footer>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="../exchange/buyUsd.js"></script>
+  <script src="../exchange/sellUsd.js"></script>
 </html>

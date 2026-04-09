@@ -1,0 +1,113 @@
+//const inputCVU = document.getElementById("InputCVU");
+const inputAmount = document.getElementById("InputAmount");
+const textAreaDescription = document.getElementById("TextAreaDescription");
+const btnSend = document.getElementById("btnSend");
+const modal = document.getElementById("myModal");
+const modalData = document.getElementById("modal-data");
+const spanClose = document.getElementById("closeModalBtn");
+const btnLogout = document.getElementById("btn-logout");
+
+btnLogout.addEventListener("click", () => {
+  sessionStorage.clear();
+  window.open("http://localhost:3000", "_self");
+});
+
+btnSend.addEventListener("click", async (e) => {
+  console.log("clic");
+  //const CVU = inputCVU.value;
+  const amount = inputAmount.value;
+  const description = textAreaDescription.value;
+  console.log(amount, description);
+  if (amount > 0) {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/sellUsd", {
+        amount: amount,
+        description: description,
+        token: sessionStorage.getItem("token")
+      });
+      console.log(response.data);
+      if (response.data.amountUsd) {
+        modal.style.display = "block";
+        const node = document.createElement("div");
+        node.className = "container";
+        node.innerHTML = `
+            <h4>Venta realizada con exito!</h4>
+            <p>Fecha: ${getDate(response.data.transactionDate)}</p>
+            <p>Monto vendido: US$ ${response.data.amountUsd}</p>
+            <p>Monto recibido: $ ${response.data.amountArs}</p>
+            <h4>Detalle:</h4>
+            <p>Motivo: ${response.data.description}</p>
+            <p>Cuenta destino: ${response.data.targetAccountId}</p>
+            <div class="container-button">
+              <button type="button" class="btn-send return" id="return" onclick="home()">
+                Volver al inicio
+              </button>
+              <button type="button" class="btn-send return" id="return" onclick="closeModal()">
+                Hacer otra compra
+              </button>
+            </div>`;
+        modalData.appendChild(node);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
+/*const getArsAccountCVU = async () => {
+  console.log("buscando CVU");
+  const userId = sessionStorage.getItem("userId");
+  const token = sessionStorage.getItem("token");
+  if(userId && token) {
+    try {
+      console.log(userId, token);
+      const response = await axios.post("/userAccounts", {
+        userId: userId,
+        token: token
+      });
+      console.log(response.data);
+      response.data.map((account) => {
+        if (account.currency === "ARS") {
+          sessionStorage.setItem("accountUsd", account.accountId);
+          inputCVU.value = account.accountId;
+          inputCVU.readOnly = true;
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};*/
+
+const getDate = (transactionDate) => {
+  const date = transactionDate.slice(0, 10);
+  const dateComponents = date.split("-");
+  const d = dateComponents[2];
+  const m = dateComponents[1];
+  const y = dateComponents[0];
+  const time = transactionDate.slice(11, 19);
+  return d + "-" + m + "-" + y + " " + time;
+};
+
+const home = () => {
+  window.open("http://localhost:3000/home", "_self");
+}
+
+const closeModal = () => {
+  modal.style.display = "none";
+  inputCVU.value = sessionStorage.getItem("accountUsd");
+  inputAmount.value = null;
+  textAreaDescription.value = null;
+  modalData.innerHTML = "";
+}
+
+spanClose.onclick = closeModal;
+
+window.onclick = function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+};
+
+//getArsAccountCVU();

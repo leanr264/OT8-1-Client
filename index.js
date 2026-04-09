@@ -90,6 +90,10 @@ app.get("/buyUsd", (req, res) => {
   res.sendFile(__dirname + "/public/exchange/buyUsd.html");
 });
 
+app.get("/sellUsd", (req, res) => {
+  res.sendFile(__dirname + "/public/exchange/sellUsd.html");
+});
+
 app.post("/loginUser", async (req, res) => {
   try {
     const data = req.body;
@@ -409,6 +413,25 @@ app.post("/buyUsd", async (req, res) => {
       {
         destinyAccountId: data.destinyAccountId,
         amount: data.amount,
+        description: data.description
+      },
+      data.token
+    );
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/sellUsd", async (req, res) => {
+  try {
+    const data = req.body;
+    const url = API_URL + "/transactions/sellUsd";
+    const response = await postData(
+      url,
+      {
+        amountUsd: data.amount,
         description: data.description
       },
       data.token
