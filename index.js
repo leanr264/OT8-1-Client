@@ -442,6 +442,21 @@ app.post("/sellUsd", async (req, res) => {
   }
 });
 
+app.get("/exchange-rate", async (req, res) => {
+  try {
+    const url = API_URL + "/transactions/exchange-rate";
+    const token = req.headers.authorization;
+    const response = await fetchData(
+      url,
+      token
+    );
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });

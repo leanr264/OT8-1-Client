@@ -3,6 +3,7 @@ const textAreaDescription = document.getElementById("TextAreaDescription");
 const btnSend = document.getElementById("btnSend");
 const modal = document.getElementById("myModal");
 const modalData = document.getElementById("modal-data");
+const pDollarRate = document.getElementById("DollarRate");
 const spanClose = document.getElementById("closeModalBtn");
 const btnLogout = document.getElementById("btn-logout");
 
@@ -53,6 +54,28 @@ btnSend.addEventListener("click", async (e) => {
   }
 });
 
+const getExchangeRate = async () => {
+  const token = sessionStorage.getItem("token");
+  if(token){
+    try {
+    const response = await axios.get("/exchange-rate", {
+        headers: {
+          "Authorization":
+            token
+        }
+    });
+    const rate = response.data;
+    console.log(rate);
+
+    pDollarRate.innerText = 
+    `Cotización actual: 1 USD = $${rate} Peso argentino`;
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
 const getDate = (transactionDate) => {
   const date = transactionDate.slice(0, 10);
   const dateComponents = date.split("-");
@@ -82,3 +105,5 @@ window.onclick = function (event) {
     closeModal();
   }
 };
+
+getExchangeRate();
