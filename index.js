@@ -86,6 +86,14 @@ app.get("/sendUsd", (req, res) => {
   res.sendFile(__dirname + "/public/send/sendUsd.html");
 });
 
+app.get("/buyUsd", (req, res) => {
+  res.sendFile(__dirname + "/public/exchange/buyUsd.html");
+});
+
+app.get("/sellUsd", (req, res) => {
+  res.sendFile(__dirname + "/public/exchange/sellUsd.html");
+});
+
 app.post("/loginUser", async (req, res) => {
   try {
     const data = req.body;
@@ -386,6 +394,61 @@ app.post("/sendUsd", async (req, res) => {
         description: data.description
       },
       data.token
+    );
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/buyUsd", async (req, res) => {
+  try {
+    const data = req.body;
+    console.log(data);
+    const url = API_URL + "/transactions/buyUsd";
+    console.log(url)
+    const response = await postData(
+      url,
+      {
+        amountUsd: data.amount,
+        description: data.description
+      },
+      data.token
+    );
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/sellUsd", async (req, res) => {
+  try {
+    const data = req.body;
+    const url = API_URL + "/transactions/sellUsd";
+    const response = await postData(
+      url,
+      {
+        amountUsd: data.amount,
+        description: data.description
+      },
+      data.token
+    );
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/exchange-rate", async (req, res) => {
+  try {
+    const url = API_URL + "/transactions/exchange-rate";
+    const token = req.headers.authorization;
+    const response = await fetchData(
+      url,
+      token
     );
     console.log(response);
     res.json(response);
