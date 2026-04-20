@@ -4,8 +4,10 @@ const btnSend = document.getElementById("btnSend");
 const modal = document.getElementById("myModal");
 const modalData = document.getElementById("modal-data");
 const pDollarRate = document.getElementById("DollarRate");
+const pArsPreview = document.getElementById("arsPreview");
 const spanClose = document.getElementById("closeModalBtn");
 const btnLogout = document.getElementById("btn-logout");
+let currentRate = null;
 
 btnLogout.addEventListener("click", () => {
   sessionStorage.clear();
@@ -54,6 +56,27 @@ btnSend.addEventListener("click", async (e) => {
   }
 });
 
+const initPage = async () => {
+  currentRate = await getExchangeRate();
+
+  if(currentRate) {
+    pDollarRate.innerText = `Cotización actual: 1 USD = $${currentRate} Peso argentino`;
+  }
+};
+
+inputAmount.addEventListener("input", () => {
+  const usd = parseFloat(inputAmount.value);
+  console.log(usd)
+
+  if(!usd || !currentRate) {
+    pArsPreview.innerText = "";
+    return;
+  }
+  const ars = usd * currentRate;
+
+  pArsPreview.innerText = `ARS a recibir: $${ars}`;
+});
+
 const getExchangeRate = async () => {
   const token = sessionStorage.getItem("token");
   if(token){
@@ -66,12 +89,11 @@ const getExchangeRate = async () => {
     });
     const rate = response.data;
     console.log(rate);
-
-    pDollarRate.innerText = 
-    `Cotización actual: 1 USD = $${rate} Peso argentino`;
-
+    return rate
+    
     } catch (error) {
       console.log(error);
+      return null;
     }
   }
 };
@@ -96,6 +118,7 @@ const closeModal = () => {
   inputAmount.value = null;
   textAreaDescription.value = null;
   modalData.innerHTML = "";
+  pArsPreview.innerText = "";
 }
 
 spanClose.onclick = closeModal;
@@ -106,4 +129,4 @@ window.onclick = function (event) {
   }
 };
 
-getExchangeRate();
+initPage();
