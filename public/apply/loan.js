@@ -1,12 +1,11 @@
 const inputAmount = document.getElementById("InputAmount");
 const selectMonth = document.getElementById("SelectMonth");
-const btnSimulate = document.getElementById("btnSimulate");
+const btnApply = document.getElementById("btnApply");
 const modal = document.getElementById("myModal");
 const modalData = document.getElementById("modal-data");
 const spanClose = document.getElementById("closeModalBtn");
-let simulatedLoan = null;
 
-btnSimulate.addEventListener("click", async (e) => {
+btnApply.addEventListener("click", async (e) => {
   console.log("clic");
   const amount = inputAmount.value;
   const months = selectMonth.value;
@@ -14,20 +13,13 @@ btnSimulate.addEventListener("click", async (e) => {
     e.preventDefault();
     console.log(amount, months);
     try {
-      const response = await axios.post("/simulateLoan", {
+      const response = await axios.post("/applyLoan", {
         amount: amount,
         months: months,
         token: sessionStorage.getItem("token")
       });
       console.log(response.data);
       if (response.data.amount) {
-        
-        simulatedLoan = {
-          amount: amount,
-          months: months
-        };
-        console.log("Este es simulatedLoan" + simulatedLoan);
-
         modal.style.display = "block";
         const node = document.createElement("div");
         node.className = "container";
@@ -40,11 +32,14 @@ btnSimulate.addEventListener("click", async (e) => {
             <p>Total de interes: AR$${response.data.totalInterest}</p>
             <p>Total a pagar : AR$${response.data.totalPayment}</p>
             <div class="container-button">
-              <button type="button" class="btn-simulate return" id="return" onclick="apply()">
-                Aplicar Prestamo
-              </button>
-              <button type="button" class="btn-simulate return" id="return" onclick="home()">
+              <button type="button" class="btn-apply return" id="return" onclick="home()">
                 Volver al inicio
+              </button>
+              <button type="button" class="btn-apply return" id="return" onclick="loan()">
+                Ver préstamos
+              </button>
+              <button type="button" class="btn-apply return" id="return" onclick="closeModal()">
+                Solicitar otro préstamo
               </button>
             </div>
         `;
@@ -56,50 +51,19 @@ btnSimulate.addEventListener("click", async (e) => {
   }
 });
 
-const apply = async () => {
-  try {
-    const response = await axios.post("/applyLoan", {
-      amount: simulatedLoan.amount,
-      months: simulatedLoan.months,
-      token: sessionStorage.getItem("token")
-    });
-
-    modalData.innerHTML = `
-      <div class="success-container">
-          <div class="success-icon">
-              ✓
-          </div>
-        <h3>Prestamo aprobado</h3>
-          <p>
-              El dinero ya fue acreditado en tu cuenta.
-          </p>
-          <div class="container-button">
-              <button
-                  type="button"
-                  class="btn-simulate return"
-                  onclick="closeModal()">
-                    Continuar
-              </button>
-          </div>
-
-      </div>
-    `;
-
-  } catch (error) {
-    console.log(error);
-    alert("Error al aplicar el prestamo");
-  }
-}
-
 const home = () => {
   window.open("http://localhost:3000/home", "_self");
+}
+
+const loan = () => {
+  window.open("http://localhost:3000/loan/myloans", "_self");
 }
 
 const closeModal = () => {
   modal.style.display = "none";
   inputAmount.value = null;
   selectMonth.value = null;
-  simulatedLoan = null;
+  
   modalData.innerHTML = "";
 } 
 

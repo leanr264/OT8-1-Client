@@ -15,6 +15,25 @@ const btnSendArs = document.getElementById("sendArs");
 const btnSendUsd = document.getElementById("sendUsd");
 const btnBuyUsd = document.getElementById("buyUsd");
 const btnSellUsd = document.getElementById("sellUsd");
+const loanHeader = document.getElementById("loan-header");
+const loanOptions = document.getElementById("loan-options");
+const loanArrow = document.getElementById("loan-arrow");
+
+loanHeader.addEventListener("click", () => {
+    loanOptions.classList.toggle("show");
+
+    if (loanOptions.classList.contains("show")) {
+
+        loanArrow.classList.remove("bi-chevron-down");
+        loanArrow.classList.add("bi-chevron-up");
+
+    } else {
+
+        loanArrow.classList.remove("bi-chevron-up");
+        loanArrow.classList.add("bi-chevron-down");
+
+    }
+});
 
 btnLogout.addEventListener("click", () => {
   sessionStorage.clear();

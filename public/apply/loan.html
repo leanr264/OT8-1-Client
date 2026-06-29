@@ -13,7 +13,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
     />
-    <link rel="stylesheet" href="../simulate/simulate.css" />
+    <link rel="stylesheet" href="../apply/apply.css" />
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
@@ -40,12 +40,12 @@
       </div>
     </header>
     <main>
-      <div class="container simulate-container">
+      <div class="container apply-container">
         <div class="row">
           <div class="col-6 mx-auto">
             <form action="" class="form-container">
               <div>
-                <h4 class="mb-3">Simula tu prestamo en pesos:</h4>
+                <h4 class="mb-3">Solicita tu prestamo en pesos:</h4>
               </div>
               <div class="mb-3">
                 <label for="InputAmount" class="form-label">Monto</label>
@@ -59,20 +59,20 @@
               </div>
               <div class="mb-3">
                 <label for="SelectMonth" class="form-label">Meses</label>
-                <select 
-                  id="SelectMonth" 
-                  class="form-select" 
-                  aria-label="select month" 
-                  required
-                  >
-                  <option value="3">3</option>
-                  <option value="6">6</option>
-                  <option value="9">9</option>
-                  <option value="12">12</option>
-                </select>
+                  <select 
+                    id="SelectMonth" 
+                    class="form-select" 
+                    aria-label="select month" 
+                    required
+                    >
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                    <option value="12">12</option>
+                  </select>
               </div>
-              <button type="submit" class="btn-simulate" id="btnSimulate">
-                Simular Prestamo
+              <button type="submit" class="btn-apply" id="btnApply">
+                Solicitar Prestamo
               </button>
             </form>
           </div>
@@ -109,6 +109,6 @@
       </div>
     </footer>
   </body>
-  <script src="../simulate/loan.js"></script>
+  <script src="../apply/loan.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </html>

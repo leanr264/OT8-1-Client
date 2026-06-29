@@ -45,7 +45,7 @@
           <div class="col-6 mx-auto">
             <form action="" class="form-container">
               <div>
-                <h4 class="mb-3">Simula tu prestamo en pesos:</h4>
+                <h4 class="mb-3">Simula un plazo fijo en pesos:</h4>
               </div>
               <div class="mb-3">
                 <label for="InputAmount" class="form-label">Monto</label>
@@ -58,21 +58,17 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="SelectMonth" class="form-label">Meses</label>
-                <select 
-                  id="SelectMonth" 
-                  class="form-select" 
-                  aria-label="select month" 
+                <label for="InputDay" class="form-label">Dias</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="InputDay"
+                  aria-describedby=""
                   required
-                  >
-                  <option value="3">3</option>
-                  <option value="6">6</option>
-                  <option value="9">9</option>
-                  <option value="12">12</option>
-                </select>
+                />
               </div>
               <button type="submit" class="btn-simulate" id="btnSimulate">
-                Simular Prestamo
+                Simular Plazo Fijo
               </button>
             </form>
           </div>
@@ -109,6 +105,6 @@
       </div>
     </footer>
   </body>
-  <script src="../simulate/loan.js"></script>
+  <script src="../simulate/fixed.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </html>

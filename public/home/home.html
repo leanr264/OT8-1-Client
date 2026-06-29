@@ -167,13 +167,28 @@
                 <p class="px-2">Simular un Plazo Fijo</p></a
               >
             </div>
-            <div class="container simulate-container mt-2 p-3">
-              <a
-                class="d-flex align-items-center justify-content-start"
-                href="http://localhost:3000/loan"
-                ><i class="bi bi-cash-coin"></i>
-                <p class="px-2">Simular un Prestamo</p>
-              </a>
+            <div class="container loan-menu mt-2 p-3">
+              <div class="loan-header" id="loan-header">
+                <div class="d-flex align-items-center">
+                
+                  <i class="bi bi-cash-coin"></i>
+                
+                  <p class="px-2 mb-0">Préstamos</p>
+
+                  <i class="bi bi-chevron-down" id="loan-arrow"></i>
+                </div>
+              </div>
+              <div class="loan-options" id="loan-options">
+                <a href="http://localhost:3000/loan">
+                    Simular un préstamo
+                </a>
+                <a href="http://localhost:3000/loan/apply">
+                    Solicitar un préstamo
+                </a>
+                <a href="http://localhost:3000/loan/myloans">
+                    Mis préstamos
+                </a>
+              </div>
             </div>
           </div>
           <div class="col">

@@ -164,3 +164,51 @@ i {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.9);
 }
+
+.loan-menu {
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow: rgba(0,0,0,.08) 0 2px 8px;
+}
+
+.loan-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.loan-options {
+
+    display: none;
+
+    margin-top: 15px;
+
+    flex-direction: column;
+}
+
+.loan-options.show {
+
+    display: flex;
+}
+
+.loan-options a {
+
+    text-decoration: none;
+
+    color: black;
+
+    padding: 8px 0;
+}
+
+.loan-options a:hover {
+
+    color: #00b1ea;
+}

@@ -58,6 +58,18 @@ app.get("/loan", (req, res) => {
   res.sendFile(__dirname + "/public/simulate/loan.html");
 });
 
+app.get("/loan/apply", (req, res) => {
+  res.sendFile(__dirname + "/public/apply/loan.html");
+});
+
+app.get("/loan/myloans", (req, res) => {
+  res.sendFile(__dirname + "/public/loan/loan.html");
+});
+
+app.get("/loan/myloans/installments/:loanId", (req, res) => {
+  res.sendFile(__dirname + "/public/loan/installment.html");
+});
+
 app.get("/fixed", (req, res) => {
   res.sendFile(__dirname + "/public/simulate/fixed.html");
 });
@@ -223,13 +235,65 @@ app.post("/payment", async (req, res) => {
   }
 });
 
+app.post("/payInstallment", async (req, res) => {
+  try {
+    const data = req.body;
+    console.log(data);
+    const url = API_URL + "/loans/installments/pay"
+    console.log(url);
+    const response = await postData(
+      url,
+      {
+        installmentId: data.installmentId
+      },
+      data.token
+    );
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/userLoans", async (req, res) => {
+  const data = req.body;
+  console.log(data);
+  const userId = data.userId;
+  const token = data.token;
+  const loanURL = API_URL + `/loans/${userId}`;
+  try {
+    console.log("Haciendo un fetch a: " + loanURL);
+    const response = await fetchData(loanURL, token);
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/loanInstallments", async (req, res) => {
+  const data = req.body;
+  console.log(data);
+  const loanId = data.loanId;
+  const token = data.token;
+  const installmentURL = API_URL + `/loans/installments/${loanId}`;
+  try {
+    console.log("Haciendo un fetch a: " + installmentURL);
+    const response = await fetchData(installmentURL, token);
+    console.log(response);
+    res.json(response);
+  } catch (error){
+    console.log(error);
+  }
+});
+
 app.post("/simulateLoan", async (req, res) => {
   const data = req.body;
   console.log(data);
   const amount = data.amount;
-  const month = data.month;
+  const month = data.months;
   const token = data.token;
-  const simulateURL = API_URL + "/loan/simulate";
+  const simulateURL = API_URL + "/loans/simulate";
   try {
     const response = await postData(
       simulateURL,
@@ -238,6 +302,26 @@ app.post("/simulateLoan", async (req, res) => {
         months: month
       },
       token
+    );
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/applyLoan", async (req, res) => {
+  try {
+    const data = req.body;
+    const url = API_URL + "/loans/apply";
+    console.log(url);
+    const response = await postData(
+      url,
+      {
+        amount: data.amount,
+        months: data.months
+      },
+      data.token
     );
     console.log(response);
     res.json(response);
