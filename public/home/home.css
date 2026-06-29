@@ -1,0 +1,214 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+html,
+body {
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  color: rgba(0, 0, 0, 0.9);
+}
+body {
+  background-color: #ededed;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+button {
+  font-weight: 500;
+}
+
+header {
+  height: 64px;
+  background-color: #00b1ea;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+footer {
+  height: 71px;
+  background-color: #f5f5f5;
+  color: rgba(0, 0, 0, 0.55);
+  width: 100%;
+}
+
+.info-container {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.actividad-container {
+  /*border: 1px solid blue;*/
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.cuentas-container {
+  /*border: 1px solid blue;*/
+}
+
+.transaction-container {
+  /*border: 1px solid red;*/
+  /*height: 90px;*/
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.account-container {
+  /*height: 290px;*/
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.account-header {
+  margin-top: 12px;
+  padding-left: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.account-balance {
+  margin-top: 6px;
+  margin-bottom: 2px;
+  padding-left: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.account-actions {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.account-btn {
+  padding: 2px 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e4f0f8;
+  color: #009ee3;
+  font-size: 16px;
+  transition: opacity 0.15s;
+}
+
+.account-btn:hover {
+  opacity: 0.9;
+}
+
+.action-btn {
+  width: 160px;
+  color: white;
+  background-color: #009ee3;
+}
+
+.actividad-title {
+  padding-top: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-mas-container {
+  padding: 12px 0;
+}
+
+.btn-mas {
+  border: none;
+  padding: 0 8px;
+  background-color: white;
+  color: #009ee3;
+}
+
+.color-33 {
+  color: #333;
+}
+
+.color-99 {
+  color: #999;
+}
+
+.color-blue {
+  color: #009ee3;
+}
+
+.cvu {
+  font-size: 16px;
+}
+
+.balance {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.color-white {
+  color: white;
+}
+
+i {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.btn-logout {
+  border: none;
+  color: white;
+  background-color: #00b1ea;
+}
+
+.simulate-container {
+  background-color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.simulate-container a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.loan-menu {
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow: rgba(0,0,0,.08) 0 2px 8px;
+}
+
+.loan-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.loan-options {
+
+    display: none;
+
+    margin-top: 15px;
+
+    flex-direction: column;
+}
+
+.loan-options.show {
+
+    display: flex;
+}
+
+.loan-options a {
+
+    text-decoration: none;
+
+    color: black;
+
+    padding: 8px 0;
+}
+
+.loan-options a:hover {
+
+    color: #00b1ea;
+}
